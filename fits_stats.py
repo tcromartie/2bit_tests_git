@@ -32,7 +32,7 @@ istats = np.zeros(len(z))
 
 for i in range(0,len(z)):
     x = z[i,:]
-    np.append(istats,chan_stats(x,m,v,s,k))
+    istats[i] = chan_stats(x[i],m,v,s,k)
 
 print istats
 print istats[2000]
