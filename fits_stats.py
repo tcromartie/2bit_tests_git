@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import scipy.stats
 from astropy.io import fits
 
-hdu = fits.open('guppi_55197_GBNCC08327_0044_0001.fits',memmap=True)
+hdu = fits.open('guppi_55179_GBNCC06605_0045_short.fits',memmap=True)
 data = hdu[1].data
 z = np.squeeze(data[0]['DATA']).T
 #print 'Array shape = %f' %(z.shape)
@@ -26,13 +26,13 @@ def chan_stats(x,m,v,s,k):
     #count, bins, ignored = plt.hist(x, 500, normed=True)
     #plt.plot(bins, 1/(sig * np.sqrt(2 * np.pi)) * np.exp(-(bins-mu)**2 / (2*sig**2)))
     #plt.show()
-    return [m.value, v.value, s.value, k.value] 
+    return np.array([m.value, v.value, s.value, k.value]) 
 
-istats = np.zeros(len(z))
+istats = np.zeros((len(z),4))
 
 for i in range(0,len(z)):
     x = z[i,:]
-    istats[i] = chan_stats(x[i],m,v,s,k)
+    istats[i] = chan_stats(x,m,v,s,k)
 
 print istats
 print istats[2000]
